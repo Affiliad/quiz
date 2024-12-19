@@ -1,215 +1,150 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz - Unhas Perfeitas</title>
+    <title>Quiz de Unhas Perfeitas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f1f1f1;
+            background-color: #f8f8f8;
             padding: 20px;
-            color: #333;
         }
-        .quiz-step {
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
             background-color: white;
             padding: 20px;
             border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .quiz-step p {
-            font-size: 18px;
+        .question {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .answers {
+            list-style-type: none;
+            padding: 0;
+        }
+        .answers li {
             margin-bottom: 10px;
         }
-        .quiz-step label {
-            display: block;
-            margin: 8px 0;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .quiz-step button {
-            padding: 10px 20px;
-            font-size: 16px;
+        .answers li button {
+            padding: 10px;
+            width: 100%;
+            background-color: #4CAF50;
             border: none;
+            color: white;
+            font-size: 1.2em;
             border-radius: 5px;
             cursor: pointer;
-            background-color: #c51563;
-            color: white;
-            transition: background-color 0.3s;
         }
-        .quiz-step button:hover {
-            background-color: #a1134e;
+        .answers li button:hover {
+            background-color: #45a049;
         }
-        .quiz-step img {
-            width: 100%;
-            max-width: 400px;
-            display: block;
+        .progress-bar-container {
             margin: 20px 0;
         }
         .progress-bar {
             width: 100%;
-            background-color: #ddd;
+            background-color: #e0e0e0;
             border-radius: 5px;
-            height: 10px;
-            margin: 20px 0;
+            height: 20px;
         }
-        .progress {
+        .progress-bar span {
+            display: block;
             height: 100%;
-            background-color: #c51563;
+            background-color: #4CAF50;
             border-radius: 5px;
+            width: 0%;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+        .intro-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            text-align: center;
         }
-        ul li {
-            margin-bottom: 8px;
+        .quiz-container img {
+            width: 100%;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
 
-<!-- Introdução -->
-<div class="quiz-step">
-  <p>Você está pronta para descobrir o segredo das unhas perfeitas?</p>
-  <img src="imagem/IMAGEM-1.jpg" alt="Imagem de Introdução">
-  <p>Descubra agora o segredo por trás das unhas de fibra que estão transformando vidas e carreiras...</p>
-  <button class="continue-button">Continuar</button>
-</div>
+    <div class="quiz-container">
+        <div id="quiz-content">
+            <h2 class="question">Você está pronta para descobrir o segredo das unhas perfeitas?</h2>
+            <img src="imagem-de-unhas.jpg" alt="Unhas Perfeitas"> <!-- Altere com a imagem desejada -->
+            <p class="intro-text">Responda a algumas perguntas para saber como você pode melhorar o seu trabalho como nail designer e alcançar o sucesso!</p>
+            <ul class="answers">
+                <li><button onclick="nextQuestion()">Começar Agora</button></li>
+            </ul>
+        </div>
 
-<!-- Parte 3 - Pergunta sobre a qualidade das unhas -->
-<div class="quiz-step">
-  <p>As unhas que você faz têm a qualidade que suas clientes merecem?</p>
-  <img src="imagem/IMAGEM-2.jpg" alt="Imagem de Qualidade das Unhas">
-  <label>😫 Não, cada vez ficam de um jeito</label>
-  <label>😐 As vezes sim, mas não sempre</label>
-  <label>😓 Tenho muita dificuldade</label>
-  <label>😄 Ficam sempre iguais</label>
-  <button class="continue-button">Continuar</button>
-</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar">
+                <span id="progress-bar"></span>
+            </div>
+        </div>
+    </div>
 
-<!-- Parte 4 - Acabamento das Unhas -->
-<div class="quiz-step">
-  <p>Depois de aplicar as unhas, o acabamento delas continua impecável por dias?</p>
-  <label>😔 Não por muito tempo.</label>
-  <label>😓 Ficam somente alguns dias.</label>
-  <label>😁 Ficam perfeitas e duram por mais de 20 dias.</label>
-  <button class="continue-button">Continuar</button>
-</div>
+    <script>
+        const questions = [
+            { question: "As unhas que você faz têm a qualidade que suas clientes merecem?", answers: ["Não, cada vez ficam de um jeito", "As vezes sim, mas não sempre", "Tenho muita dificuldade", "Ficam sempre iguais"] },
+            { question: "Depois de aplicar as unhas, o acabamento delas continua impecável por dias?", answers: ["Não por muito tempo", "Ficam somente alguns dias", "Ficam perfeitas e duram por mais de 20 dias"] },
+            { question: "Você tem alcançado os resultados que esperava no seu negócio de unhas?", answers: ["Não, porque não tenho tempo", "Estou com poucas clientes mas sei que posso melhorar", "Já tenho muitas clientes e quero escalar meu negócio"] },
+            { question: "Você está tendo os resultados que espera como nail designer?", answers: ["Ainda não realizo agendamentos", "Sim, mas não o suficiente", "Pago todas as minhas contas trabalhando como nail designer"] },
+            { question: "Você já fez algum curso de unhas?", answers: ["Nunca Fiz", "Aprendi tudo sozinha", "Gostaria de fazer", "Já fiz sim"] },
+            { question: "Você concorda comigo que a experiência do cliente é muito importante?", answers: ["Concordo, cliente feliz é tudo de bom", "Não concordo"] },
+            { question: "Você concorda comigo que com as unhas bem feitas e um bom acabamento, elas se vendem sozinhas?", answers: ["Concordo", "Não concordo"] },
+            { question: "Você gostaria que seus clientes efetuassem agendamentos antecipados?", answers: ["Seria meu sonho, mas tenho dificuldade", "Sim, mas não sei por onde começar", "Não sei se isso seria possível"] },
+            { question: "O que te impede hoje de viver apenas do seu trabalho como nail designer?", answers: ["Não tenho dinheiro para isso", "Não tenho tempo para começar", "Tenho medo de não dar certo"] },
+            { question: "Qual sua renda atualmente?", answers: ["Abaixo de R$1.000 por mês", "Entre R$1.000 e R$2.000 por mês", "Acima de R$7.000 por mês"] },
+            { question: "Quanto você gostaria de ganhar trabalhando como nail designer?", answers: ["Acima de R$10.000 por mês", "Entre R$2.000 e R$4.000 por mês", "Entre R$1.000 e R$2.000 por mês"] },
+            { question: "Como você avalia seu conhecimento em unhas?", answers: ["Zero, quero iniciar", "Intermediário, quero aprender mais", "Avançado, já tenho muitas clientes"] },
+            { question: "Em 3 meses, como você gostaria de estar?", answers: ["Vendendo muito e trabalhando apenas como nail designer", "Quero apenas uma nova fonte de renda", "Ainda não pensei sobre isso"] },
+        ];
 
-<!-- Parte 5 - Resultados no negócio de unhas -->
-<div class="quiz-step">
-  <p>Você tem alcançado os resultados que esperava no seu negócio de unhas?</p>
-  <label>😕 Não, porque não tenho tempo.</label>
-  <label>😐 Estou com poucas clientes mas sei que posso melhorar</label>
-  <label>😁 Já tenho muitas clientes e quero escalar meu negócio</label>
-  <button class="continue-button">Continuar</button>
-</div>
+        let currentQuestionIndex = 0;
+        let progress = 0;
 
-<!-- Parte 7 - Imagem -->
-<div class="quiz-step">
-  <img src="imagem/IMAGEM-3.jpg" alt="Imagem de Parte 7">
-  <button class="continue-button">Continuar</button>
-</div>
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                showQuestion(questions[currentQuestionIndex]);
+            } else {
+                showResults();
+            }
+        }
 
-<!-- Parte 8 - Curso de Unhas -->
-<div class="quiz-step">
-  <p>Você já fez algum curso de unhas?</p>
-  <label>🙁 Nunca fiz</label>
-  <label>🫠 Aprendi tudo sozinha</label>
-  <label>🤩 Gostaria de fazer</label>
-  <label>😁 Já fiz sim</label>
-  <button class="continue-button">Continuar</button>
-</div>
+        function showQuestion(questionData) {
+            const quizContent = document.getElementById("quiz-content");
+            quizContent.innerHTML = `
+                <h2 class="question">${questionData.question}</h2>
+                <ul class="answers">
+                    ${questionData.answers.map(answer => `<li><button onclick="nextQuestion()"> ${answer} </button></li>`).join('')}
+                </ul>
+            `;
+            updateProgressBar();
+            currentQuestionIndex++;
+        }
 
-<!-- Parte 13 - Imagem -->
-<div class="quiz-step">
-  <img src="imagem/IMAGEM-4.jpg" alt="Imagem de Parte 13">
-  <button class="continue-button">Continuar</button>
-</div>
+        function showResults() {
+            const quizContent = document.getElementById("quiz-content");
+            quizContent.innerHTML = `
+                <h2>Seu plano está pronto!</h2>
+                <p>Baseado no seu perfil, desenvolvi um plano exclusivo para você alcançar o sucesso como nail designer.</p>
+                <button onclick="window.location.href='checkout.html'">Quero Começar Agora!</button>
+            `;
+        }
 
-<!-- Parte 14 - Renda atual -->
-<div class="quiz-step">
-  <p>Qual sua renda atualmente?</p>
-  <label>Abaixo de R$1.000 por mês.</label>
-  <label>Entre R$1.000 e R$2.000 por mês.</label>
-  <label>Acima de R$7.000 por mês.</label>
-  <button class="continue-button">Continuar</button>
-</div>
+        function updateProgressBar() {
+            progress = (currentQuestionIndex / questions.length) * 100;
+            document.getElementById("progress-bar").style.width = progress + "%";
+        }
 
-<!-- Parte 16 - Avaliação do Conhecimento em Unhas -->
-<div class="quiz-step">
-  <p>Como você avalia seu conhecimento em unhas?</p>
-  <label>Zero, quero iniciar.</label>
-  <label>Intermediário, quero aprender mais.</label>
-  <label>Avançado, já tenho muitas clientes.</label>
-  <button class="continue-button">Continuar</button>
-</div>
-
-<!-- Parte 18 - Resultado Fictício e Barra de Progresso -->
-<div class="quiz-step">
-  <div class="progress-bar">
-    <div class="progress" style="width: 95%;"></div>
-  </div>
-  <p>Seu resultado:</p>
-  <p>Mentalidade e Motivação: 40%</p>
-  <p>Renda: 20%</p>
-  <p>Conhecimento Geral: 40%</p>
-  <p>Vamos montar um plano?</p>
-  <button class="continue-button">Continuar</button>
-</div>
-
-<!-- Parte 19-22 - Plano Exclusivo, Perguntas de Compromisso e Tempo -->
-<div class="quiz-step">
-  <p>Você tem o gel e as tips para começar a fazer unhas em fibra?</p>
-  <label>🤩 Sim, pronta para começar.</label>
-  <label>😆 Não, mas eu posso comprar.</label>
-  <label>😐 Estou sem dinheiro.</label>
-  <button class="continue-button">Continuar</button>
-</div>
-
-<div class="quiz-step">
-  <p>Você se compromete a seguir o plano que vou desenvolver para você?</p>
-  <label>👍 Sim, me comprometo</label>
-  <label>👎 Não sei se vou conseguir</label>
-  <button class="continue-button">Continuar</button>
-</div>
-
-<div class="quiz-step">
-  <p>Quanto tempo você tem disponível por dia?</p>
-  <label>😁 2 horas por dia...</label>
-  <label>😐 Entre 30 min e 1 hora por dia...</label>
-  <label>😩 Menos de 30 min...</label>
-  <label>😪 Nem eu sei...</label>
-  <button class="continue-button">Continuar</button>
-</div>
-
-<!-- Resultado Final -->
-<div class="quiz-step">
-  <p>Seu plano está pronto!</p>
-  <p>Baseado no seu perfil, desenvolvi um plano exclusivamente para você.</p>
-  <div class="progress-bar">
-    <div class="progress" style="width: 95%;"></div>
-  </div>
-  <p>Hoje: 20%</p>
-  <p>1º mês: 50%</p>
-  <p>2º mês: 75%</p>
-  <p>3º mês: 95%</p>
-  <h3>Quais benefícios vou ter:</h3>
-  <ul>
-    <li>✅ Aprenda a fazer as MELHORES UNHAS EM FIBRA...</li>
-    <li>✅ + de 30 Técnicas e Estilos de Unhas em Fibra...</li>
-    <li>✅ Acesso 100% ao material...</li>
-  </ul>
-  <h4>Bônus Adicionais:</h4>
-  <ul>
-    <li>✅ BÔNUS 1 - LIVRO DIGITAL UNHA PERFEITA</li>
-    <li>✅ BÔNUS 2 - LIVRO DIGITAL APLICAÇÃO DE POLYGEL</li>
-    <li>✅ BÔNUS 3 - MATERIAIS FIBRA DE VIDRO E GEL</li>
-  </ul>
-  <button class="checkout-button">Quero Começar Agora</button>
-</div>
+        // Começar o quiz
+        nextQuestion();
+    </script>
 
 </body>
 </html>
