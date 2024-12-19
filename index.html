@@ -32,7 +32,7 @@
         .answers li button {
             padding: 10px;
             width: 100%;
-            background-color: #c51563;
+            background-color: #4CAF50;
             border: none;
             color: white;
             font-size: 1.2em;
@@ -40,21 +40,21 @@
             cursor: pointer;
         }
         .answers li button:hover {
-            background-color: #c51563;
+            background-color: #45a049;
         }
         .progress-bar-container {
             margin: 20px 0;
         }
         .progress-bar {
-            width: 0%;
-            background-color: #c1bfc0;
+            width: 100%;
+            background-color: #e0e0e0;
             border-radius: 5px;
             height: 20px;
         }
         .progress-bar span {
             display: block;
             height: 100%;
-            background-color: #c51563;
+            background-color: #4CAF50;
             border-radius: 5px;
             width: 0%;
         }
@@ -79,20 +79,19 @@
 
     <script>
         const questions = [
-            { question: "As unhas que você faz têm a qualidade que suas clientes merecem?", answers: ["😫 Não, cada vez ficam de um jeito", "😓 As vezes sim, mas não sempre", "😐 Tenho muita dificuldade", "😄 Ficam sempre iguais"] },
-            { question: "Depois de aplicar as unhas, o acabamento delas continua impecável por dias?", answers: ["😔 Não por muito tempo", "😓 Ficam somente alguns dias", "😁 Ficam perfeitas e duram por mais de 20 dias"] },
-            { question: "Você tem alcançado os resultados que esperava no seu negócio de unhas?", answers: ["😕 Não, porque não tenho tempo", "😐 Estou com poucas clientes mas sei que posso melhorar", "😁 Já tenho muitas clientes e quero escalar meu negócio"] },
-            { question: "Você está tendo os resultados que espera como nail designer?", answers: [" 😶 Ainda não realizo agendamentos", "😓 Sim, mas não o suficiente", "😁 Pago todas as minhas contas trabalhando como nail designer"] },
-            { question: "Você já fez algum curso de unhas?", answers: ["🙁 Nunca Fiz", "😶 Aprendi tudo sozinha", "🤩 Gostaria de fazer", "😁 Já fiz sim"] },
-            { question: "Você concorda comigo que a experiência do cliente é muito importante?", answers: ["😍 Concordo, cliente feliz é tudo de bom", "👎 Não concordo"] },
-            { question: "Você concorda comigo que com as unhas bem feitas e um bom acabamento, elas se vendem sozinhas?", answers: ["😍 Concordo", "👎 Não concordo"] },
-            { question: "Você gostaria que seus clientes efetuassem agendamentos antecipados?", answers: [" 
-["😫Seria meu sonho, mas tenho dificuldade", "😐 Sim, mas não sei por onde começar", "😁 Não sei se isso seria possível"] },
-            { question: "O que te impede hoje de viver apenas do seu trabalho como nail designer?", answers: ["😫 Não tenho dinheiro para isso", "👎 Não tenho tempo para começar", "😭 Tenho medo de não dar certo"] },
-            { question: "Qual sua renda atualmente?", answers: ["Abaixo de R$1.000 por mês", "Entre R$1.000 e R$2.000 por mês", "Acima de R$7.000 por mês"] },
-            { question: "Quanto você gostaria de ganhar trabalhando como nail designer?", answers: ["Acima de R$10.000 por mês", "Entre R$2.000 e R$4.000 por mês", "Entre R$1.000 e R$2.000 por mês"] },
-            { question: "Como você avalia seu conhecimento em unhas?", answers: ["Zero, quero iniciar", "Intermediário, quero aprender mais", "Avançado, já tenho muitas clientes"] },
-            { question: "Em 3 meses, como você gostaria de estar?", answers: ["Vendendo muito e trabalhando apenas como nail designer", "Quero apenas uma nova fonte de renda", "Ainda não pensei sobre isso"] },
+            { question: "As unhas que você faz têm a qualidade que suas clientes merecem?", answers: ["Não, cada vez ficam de um jeito 😞", "As vezes sim, mas não sempre 🤔", "Tenho muita dificuldade 😖", "Ficam sempre iguais 😍"] },
+            { question: "Depois de aplicar as unhas, o acabamento delas continua impecável por dias?", answers: ["Não por muito tempo 😣", "Ficam somente alguns dias 😕", "Ficam perfeitas e duram por mais de 20 dias 😃"] },
+            { question: "Você tem alcançado os resultados que esperava no seu negócio de unhas?", answers: ["Não, porque não tenho tempo 😞", "Estou com poucas clientes mas sei que posso melhorar 💪", "Já tenho muitas clientes e quero escalar meu negócio 💼"] },
+            { question: "Você está tendo os resultados que espera como nail designer?", answers: ["Ainda não realizo agendamentos 😓", "Sim, mas não o suficiente 😐", "Pago todas as minhas contas trabalhando como nail designer 💰"] },
+            { question: "Você já fez algum curso de unhas?", answers: ["Nunca Fiz 🚫", "Aprendi tudo sozinha 🤓", "Gostaria de fazer 🎓", "Já fiz sim ✅"] },
+            { question: "Você concorda comigo que a experiência do cliente é muito importante?", answers: ["Concordo, cliente feliz é tudo de bom 😁", "Não concordo 🤷"] },
+            { question: "Você concorda comigo que com as unhas bem feitas e um bom acabamento, elas se vendem sozinhas?", answers: ["Concordo 👍", "Não concordo 👎"] },
+            { question: "Você gostaria que seus clientes efetuassem agendamentos antecipados?", answers: ["Seria meu sonho, mas tenho dificuldade 😔", "Sim, mas não sei por onde começar 🤷", "Não sei se isso seria possível 🤨"] },
+            { question: "O que te impede hoje de viver apenas do seu trabalho como nail designer?", answers: ["Não tenho dinheiro para isso 💸", "Não tenho tempo para começar ⏰", "Tenho medo de não dar certo 😟"] },
+            { question: "Qual sua renda atualmente?", answers: ["Abaixo de R$1.000 por mês 💸", "Entre R$1.000 e R$2.000 por mês 💵", "Acima de R$7.000 por mês 💰"] },
+            { question: "Quanto você gostaria de ganhar trabalhando como nail designer?", answers: ["Acima de R$10.000 por mês 💸", "Entre R$2.000 e R$4.000 por mês 💳", "Entre R$1.000 e R$2.000 por mês 💵"] },
+            { question: "Como você avalia seu conhecimento em unhas?", answers: ["Zero, quero iniciar 🚫", "Intermediário, quero aprender mais 📚", "Avançado, já tenho muitas clientes 💅"] },
+            { question: "Em 3 meses, como você gostaria de estar?", answers: ["Vendendo muito e trabalhando apenas como nail designer 🤑", "Quero apenas uma nova fonte de renda 💡", "Ainda não pensei sobre isso 🤔"] },
         ];
 
         let currentQuestionIndex = 0;
