@@ -1,122 +1,139 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Dinâmico</title>
+    <title>Quiz de Unhas Perfeitas</title>
     <style>
         body {
-            font-family: 'GeistSans', sans-serif;
-            background-color: #f7f7f7;
-            padding: 0;
-            margin: 0;
-        }
-        .container {
-            width: 100%;
-            max-width: 375px;
-            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
             padding: 20px;
         }
-        .progress-bar {
-            background-color: #ddd;
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
             border-radius: 10px;
-            height: 10px;
-            width: 100%;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .progress-bar-inner {
-            background-color: #C51563;
-            border-radius: 10px;
-            height: 100%;
-            width: 0%; /* Inicializa com 0% */
-            transition: width 0.5s ease-in-out; /* Animação suave */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .question {
-            font-size: 27.2px;
-            font-weight: bold;
-            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .answers {
+            list-style-type: none;
+            padding: 0;
+        }
+        .answers li {
             margin-bottom: 10px;
         }
-        .question-secondary {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 15px;
-        }
-        .btn {
-            background-color: #C51563;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
+        .answers li button {
+            padding: 10px;
             width: 100%;
-            margin-top: 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        .btn:hover {
-            background-color: #A1144F;
+        .answers li button:hover {
+            background-color: #45a049;
+        }
+        .progress-bar-container {
+            margin: 20px 0;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            height: 20px;
+        }
+        .progress-bar span {
+            display: block;
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            width: 0%;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Barra de progresso -->
-        <div class="progress-bar">
-            <div class="progress-bar-inner" id="progressBar"></div>
+
+    <div class="quiz-container">
+        <div id="quiz-content">
+            <h2 class="question">Você está pronta para descobrir o segredo das unhas perfeitas?</h2>
+            <ul class="answers">
+                <li><button onclick="nextQuestion()">Continuar</button></li>
+            </ul>
         </div>
 
-        <!-- Pergunta e respostas -->
-        <div class="question" id="question">Você está pronta para descobrir o segredo das unhas perfeitas?</div>
-        <div class="question-secondary" id="questionSecondary">Descubra agora o segredo por trás das unhas de fibra que estão transformando vidas e carreiras...</div>
-
-        <!-- Imagem -->
-        <img src="imagem/IMAGEM-1.jpg" alt="Imagem 1" style="width: 100%; height: auto; margin: 5px 0;"> <!-- Imagem pode ser alterada conforme as perguntas -->
-
-        <!-- Botão Continuar -->
-        <button class="btn" onclick="nextQuestion()">Continuar</button>
+        <div class="progress-bar-container">
+            <div class="progress-bar">
+                <span id="progress-bar"></span>
+            </div>
+        </div>
     </div>
 
     <script>
-        var currentQuestion = 1; // Inicia com a primeira pergunta
-        var totalQuestions = 22; // Total de perguntas
-        var questions = [
-            { question: "Você está pronta para descobrir o segredo das unhas perfeitas?", 
-              secondaryText: "Descubra agora o segredo por trás das unhas de fibra que estão transformando vidas e carreiras...", 
-              image: "imagem/IMAGEM-1.jpg" },
-            { question: "Pergunta 2: Qual é o seu maior desafio com unhas?", 
-              secondaryText: "Entenda os desafios mais comuns para ter unhas perfeitas.", 
-              image: "imagem/IMAGEM-2.jpg" },
-            // Adicione mais perguntas aqui conforme necessário
+        const questions = [
+            { question: "As unhas que você faz têm a qualidade que suas clientes merecem?", answers: ["Não, cada vez ficam de um jeito", "As vezes sim, mas não sempre", "Tenho muita dificuldade", "Ficam sempre iguais"] },
+            { question: "Depois de aplicar as unhas, o acabamento delas continua impecável por dias?", answers: ["Não por muito tempo", "Ficam somente alguns dias", "Ficam perfeitas e duram por mais de 20 dias"] },
+            { question: "Você tem alcançado os resultados que esperava no seu negócio de unhas?", answers: ["Não, porque não tenho tempo", "Estou com poucas clientes mas sei que posso melhorar", "Já tenho muitas clientes e quero escalar meu negócio"] },
+            { question: "Você está tendo os resultados que espera como nail designer?", answers: ["Ainda não realizo agendamentos", "Sim, mas não o suficiente", "Pago todas as minhas contas trabalhando como nail designer"] },
+            { question: "Você já fez algum curso de unhas?", answers: ["Nunca Fiz", "Aprendi tudo sozinha", "Gostaria de fazer", "Já fiz sim"] },
+            { question: "Você concorda comigo que a experiência do cliente é muito importante?", answers: ["Concordo, cliente feliz é tudo de bom", "Não concordo"] },
+            { question: "Você concorda comigo que com as unhas bem feitas e um bom acabamento, elas se vendem sozinhas?", answers: ["Concordo", "Não concordo"] },
+            { question: "Você gostaria que seus clientes efetuassem agendamentos antecipados?", answers: ["Seria meu sonho, mas tenho dificuldade", "Sim, mas não sei por onde começar", "Não sei se isso seria possível"] },
+            { question: "O que te impede hoje de viver apenas do seu trabalho como nail designer?", answers: ["Não tenho dinheiro para isso", "Não tenho tempo para começar", "Tenho medo de não dar certo"] },
+            { question: "Qual sua renda atualmente?", answers: ["Abaixo de R$1.000 por mês", "Entre R$1.000 e R$2.000 por mês", "Acima de R$7.000 por mês"] },
+            { question: "Quanto você gostaria de ganhar trabalhando como nail designer?", answers: ["Acima de R$10.000 por mês", "Entre R$2.000 e R$4.000 por mês", "Entre R$1.000 e R$2.000 por mês"] },
+            { question: "Como você avalia seu conhecimento em unhas?", answers: ["Zero, quero iniciar", "Intermediário, quero aprender mais", "Avançado, já tenho muitas clientes"] },
+            { question: "Em 3 meses, como você gostaria de estar?", answers: ["Vendendo muito e trabalhando apenas como nail designer", "Quero apenas uma nova fonte de renda", "Ainda não pensei sobre isso"] },
         ];
 
-        // Função para avançar para a próxima pergunta
+        let currentQuestionIndex = 0;
+        let progress = 0;
+
         function nextQuestion() {
-            if (currentQuestion < totalQuestions) {
-                currentQuestion++;
-                updateProgressBar();
-                updateQuestion();
+            if (currentQuestionIndex < questions.length) {
+                showQuestion(questions[currentQuestionIndex]);
             } else {
-                // Aqui você pode redirecionar para a página de resultados ou finalizar o quiz
-                alert('Quiz terminado!'); 
+                showResults();
             }
         }
 
-        // Função para atualizar a barra de progresso
+        function showQuestion(questionData) {
+            const quizContent = document.getElementById("quiz-content");
+            quizContent.innerHTML = `
+                <h2 class="question">${questionData.question}</h2>
+                <ul class="answers">
+                    ${questionData.answers.map(answer => `<li><button onclick="nextQuestion()"> ${answer} </button></li>`).join('')}
+                </ul>
+            `;
+            updateProgressBar();
+            currentQuestionIndex++;
+        }
+
+        function showResults() {
+            const quizContent = document.getElementById("quiz-content");
+            quizContent.innerHTML = `
+                <h2>Seu plano está pronto!</h2>
+                <p>Baseado no seu perfil, desenvolvi um plano exclusivo para você alcançar o sucesso como nail designer.</p>
+                <button onclick="window.location.href='checkout.html'">Quero Começar Agora!</button>
+            `;
+        }
+
         function updateProgressBar() {
-            var progress = (currentQuestion / totalQuestions) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
+            progress = (currentQuestionIndex / questions.length) * 100;
+            document.getElementById("progress-bar").style.width = progress + "%";
         }
 
-        // Função para atualizar a pergunta e os detalhes
-        function updateQuestion() {
-            if (currentQuestion <= questions.length) {
-                document.getElementById('question').innerText = questions[currentQuestion - 1].question;
-                document.getElementById('questionSecondary').innerText = questions[currentQuestion - 1].secondaryText;
-                document.querySelector('img').src = questions[currentQuestion - 1].image;
-            }
-        }
+        // Começar o quiz
+        nextQuestion();
     </script>
+
 </body>
 </html>
